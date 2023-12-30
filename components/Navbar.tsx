@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CustomButton } from ".";
+import { getServerSession } from "next-auth";
+import Logout from "@/app/logout";
 
-const Navbar = () => {
+export default async function Navbar() {
+  const session = await getServerSession();
+
   return (
     <header className="w-full absolute z-10">
       <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4">
@@ -15,10 +19,17 @@ const Navbar = () => {
             className="object-contain"
           />
         </Link>
-        <CustomButton title="Sign In" btnType="button" containerStyles="text-primary-blue rounded-full bg-white min-w-[130px]"/>
+        {!!session && <Logout />}
+        {!session && (
+          <Link href="/signup">
+            <CustomButton
+              title={"Sign Up"}
+              btnType="button"
+              containerStyles="text-primary-blue rounded-full bg-white min-w-[130px]"
+            />
+          </Link>
+        )}
       </nav>
     </header>
   );
-};
-
-export default Navbar;
+}
