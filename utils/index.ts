@@ -10,19 +10,23 @@ export async function fetchCars(filters:FilterProps){
       const result= await response.json();
       return result;
 }
-export const calculateCarRent = (city_mpg: number, year: number) => {
-    const basePricePerDay = 50; // Base rental price per day in dollars
-    const mileageFactor = 0.1; // Additional rate per mile driven
-    const ageFactor = 0.05; // Additional rate per year of vehicle age
-  
-    // Calculate additional rate based on mileage and age
-    const mileageRate = city_mpg * mileageFactor;
-    const ageRate = (new Date().getFullYear() - year) * ageFactor;
-  
-    // Calculate total rental rate per day
-    const rentalRatePerDay = basePricePerDay + mileageRate + ageRate;
-  
-    return rentalRatePerDay.toFixed(0);
+export const calculateCarPrice = (city_mpg: number, year: number) => {
+   // Your specific formula for calculating the price
+  // This is just a placeholder formula, replace it with your own logic
+  const basePrice = 20000; // Base price for a new car
+  const depreciationFactor = 0.95; // Example depreciation factor for each year
+
+  // Adjust the price based on the car's age
+  const ageMultiplier = Math.pow(depreciationFactor, new Date().getFullYear() - year);
+
+  // Adjust the price based on city miles per gallon
+  const mpgMultiplier = city_mpg > 25 ? 1.05 : 0.95;
+
+  // Calculate the final price
+  const finalPrice = basePrice * ageMultiplier * mpgMultiplier;
+
+  // Round the final price to two decimal places
+  return Math.round(finalPrice * 100) / 100;
 };
 export const generateCarImageUrl = (car: CarProps, angle?: string) => {
     const url = new URL("https://cdn.imagin.studio/getimage");

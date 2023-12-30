@@ -3,7 +3,7 @@ import { CarProps } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { CustomButton } from ".";
-import { calculateCarRent, generateCarImageUrl } from "@/utils";
+import { calculateCarPrice, generateCarImageUrl } from "@/utils";
 import CarDetails from "./CarDetails";
 interface CarCardProps {
   car: CarProps;
@@ -11,7 +11,7 @@ interface CarCardProps {
 const CarCard = ({ car }: CarCardProps) => {
   const [open, setOpen] = useState(false);
   const { city_mpg, year, make, model, transmission, drive } = car;
-  const carRent = calculateCarRent(city_mpg, year);
+  const carPrice = calculateCarPrice(city_mpg, year);
   return (
     <div className="car-card group">
       <div className="car-card__content">
@@ -22,8 +22,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
       <p className="flex mt-6 text-[32px] font-extrabold">
         <span className="self-start text-[14px] font-semibold">$</span>
-        {carRent}
-        <span className="self-end text-[14px] font-medium">/day</span>
+        {carPrice}
       </p>
 
       <div className="relative w-full h-40 my-3 object-contain">

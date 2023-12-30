@@ -1,4 +1,5 @@
 "use client";
+import Alert from "@/components/Alert";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
@@ -57,6 +58,10 @@ export default function Form() {
         password: formData.password,
       }),
     });
+
+    if (response.status !== 200) {
+      <Alert title="Email alreay in use" />;
+    }
   };
 
   return (
@@ -89,6 +94,7 @@ export default function Form() {
                   />
                 </div>
               </div>
+              <p className="text-red-500 text-xs italic">{errors.username}</p>
 
               <div className="border-2 border-solid rounded flex items-center mb-4">
                 <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
@@ -106,6 +112,7 @@ export default function Form() {
                   />
                 </div>
               </div>
+              <p className="text-red-500 text-xs italic">{errors.email}</p>
 
               <div className="border-2 border-solid rounded flex items-center mb-4">
                 <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
@@ -123,6 +130,7 @@ export default function Form() {
                   />
                 </div>
               </div>
+              <p className="text-red-500 text-xs italic">{errors.password}</p>
 
               <div className="text-center mt-6 md:mt-12">
                 <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl py-2 px-4 md:px-6 rounded transition-colors duration-300">
