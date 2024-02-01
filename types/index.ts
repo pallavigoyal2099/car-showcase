@@ -15,6 +15,7 @@ interface OptionsProps{
 }
 export interface CustomFilterProps {
   title: string;
+  setFilter:(filter: any)=>void;
   options:OptionsProps[]
 }
 export interface SearchManufacturerProps {
@@ -45,4 +46,5 @@ export interface FilterProps {
 export interface ShowMoreProps {
   pageNumber: number;
   isNext: boolean;
+  setLimit:(limit:any)=>void;
 }
